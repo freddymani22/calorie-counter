@@ -1,0 +1,43 @@
+body{
+  background-color: rgb(17, 16, 16);
+  color:white;
+}
+
+.progress{
+  background-color: rgb(250, 92, 19);
+}
+
+
+.form-select {
+    display: inline-block;
+    width: auto;
+    /* vertical-align: middle; */
+  }
+  
+
+
+  .navbarcss{
+    background-color: aqua;
+    color: red;
+  }
+
+
+
+  td {
+    padding: 5px;
+  }
+
+  .navbar-brand{
+    font-weight: 500;
+    font-size: x-large;
+  }
+
+.delete-view{
+margin-top: 25em;
+border-radius: 2em;;
+
+}
+.delete-view:hover{
+ transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+

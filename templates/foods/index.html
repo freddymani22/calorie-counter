@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <nav class="navbarcss navbar navbar-white bg-info">
+        <span class="navbar-brand lead text-dark">TRACK-CALORIE</span>
+      </nav>
+    </div>
+  </div>
+
+<div class="row">
+
+  <div class="col-md-9 col-10 offset-1 mb-3 mt-3 text-center">
+    <h4>Calorie Goal</h4>
+    <div class="progress">
+        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Example with label" style="width:100%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100%">25%</div>
+
+    </div>
+  </div>
+</div>
+  <div class="row mt-4">
+    <div class="col-md-12 mt-3 mb-3">
+      <form method="POST">
+        <div class="form-group row">
+          {% csrf_token %}
+          <label for='food_consumed' class="col-md-4 ms-md-5 col-lg-2 lead"><b>Select Food To Add: </b></label>
+          <select class="col-md-6 ms-5 ms-md-0 col-lg-3 form-select" name="food_consumed" id="food_consumed">
+            {% for q in qs %}
+            <option value="{{q.name}}">{{q.name}}</option>
+            {% endfor %}
+          </select>
+          <button class="btn btn-success col-2 ms-1" type="submit">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+
+    <div class="col-sm-8 col-lg-5">
+
+      <div>
+        <h4 class="text-center">Today's Consumption</h4>
+      </div>
+<div class="table-responsive">
+      <table id="table" class=" table  table-sm table-bordered table-striped table-primary">
+        <thead>
+          <tr class="bg-primary text-danger table-header">
+            <th>Delete</th>
+            <th>Food Items</th>
+            <th>Carbs(gm)</th>
+            <th>Proteins(gm)</th>
+            <th>Fat(gm)</th>
+            <th>Calories(Kcal)</th>
+          </tr>
+        </thead>
+        {% for consumed in consumed_qs %}
+
+
+
+        <tr>
+          <td> <a href= "{{ consumed.delete_absolute_url }}" class = 'btn btn btn-danger'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+          </svg></a></td>
+          <td>{{ consumed.food_consumed.name }}</td>
+          <td>{{ consumed.food_consumed.carbs }}</td>
+          <td>{{ consumed.food_consumed.protein }}</td>
+          <td>{{ consumed.food_consumed.fat }}</td>
+          <td>{{ consumed.food_consumed.calories }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td></td>
+          <td class="fw-bold text-danger"  id="">Total</td>
+          <td class="fw-bold text-danger" id="carbs"></td>
+          <td class="fw-bold text-danger" id="protein"></td>
+          <td class="fw-bold text-danger" id="fat"></td>
+          <td class="fw-bold text-danger" id="calories"></td>
+        </tr>
+      </table>
+      </div>
+    </div>
+<div class="col-sm-12 col-lg-5 ms-lg-2">
+
+<div class=""> 
+  <h4>Today's breakdown</h4>
+</div>
+<div class="card-header text-white text-center bg-primary">
+<h4>Macronutrients breakdown</h4>
+</div>
+
+<div class="col-10 align-items-center justify-content-center">
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
+</div>
+
+
+</div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}
