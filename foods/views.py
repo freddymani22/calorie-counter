@@ -1,30 +1,22 @@
-from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
-from django.urls import reverse
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 
-
-from .models import Food,Consume
+from .models import CalorieLimit
 # Create your views here.
-
+@login_required
 def index(request):
+    if request.method == 'GET':
+        limit_obj, created= CalorieLimit.objects.get_or_create(user = request.user)
+        context = {'cal_limit': limit_obj}
+        return render(request, 'foods/index.html', context=context)
+    cal_limit = request.POST.get('cal-limit')
+    updated_value = {'calorie_limit':cal_limit}
 
-    if request.method == 'POST':
-        food_consumed = request.POST.get('food_consumed')
-        consume_obj = Food.objects.get(name=food_consumed)
-        consume_user = request.user
-        Consume.objects.create(user = consume_user, food_consumed=consume_obj)
-
-
-    qs = Food.objects.all()
-    consumed_qs = Consume.objects.filter(user = request.user)
-    context = {'qs':qs, 'consumed_qs': consumed_qs}
+    x,created = CalorieLimit.objects.update_or_create(user = request.user, defaults=updated_value)
+    limit_obj= CalorieLimit.objects.get(user = request.user)
+    context = {'cal_limit': limit_obj}
     return render(request, 'foods/index.html', context=context)
 
 
-def delete_consume(request, id):
-    obj = get_object_or_404(Consume, id=id)
-    if request.method =="POST":
-        obj.delete()
-        return redirect('home')
-    return render(request, 'foods/delete.html')
+

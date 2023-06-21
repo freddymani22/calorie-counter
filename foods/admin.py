@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Food,Consume
+from .models import Food, CalorieLimit
 
 # Register your models here.
 
@@ -9,7 +9,6 @@ class Foodadmin(admin.ModelAdmin):
 
 
 admin.site.register(Food,Foodadmin)
+admin.site.register(CalorieLimit)
 
 
-
-admin.site.register(Consume)

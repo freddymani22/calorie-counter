@@ -1,9 +1,8 @@
 from django.urls import path
 
-from.views import index, delete_consume
+from.views import index
 
 
 urlpatterns = [
-    path("",index,name='home'),
-    path("delete/<int:id>/",delete_consume,name='delete')
+    path("",index,name='home')
 ]

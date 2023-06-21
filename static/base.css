@@ -1,7 +1,4 @@
-body{
-  background-color: rgb(17, 16, 16);
-  color:white;
-}
+
 
 .progress{
   background-color: rgb(250, 92, 19);
@@ -41,3 +38,6 @@ border-radius: 2em;;
  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+.delete-button:hover{
+  color: black
+}
